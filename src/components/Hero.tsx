@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import heroImage from '../assets/images/hero_sakleshpur_1777705987157.png';
+import WeatherWidget from './WeatherWidget';
 
 export default function Hero() {
   return (
@@ -66,15 +67,7 @@ export default function Hero() {
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </Link>
 
-            <div className="flex items-center gap-4">
-              <div className="flex -space-x-3">
-                <div className="w-10 h-10 rounded-full border-2 border-brand-green bg-gray-300"></div>
-                <div className="w-10 h-10 rounded-full border-2 border-brand-green bg-gray-400"></div>
-                <div className="w-10 h-10 rounded-full border-2 border-brand-green bg-gray-500"></div>
-                <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-brand-green bg-brand-yellow text-[10px] font-bold text-brand-green">2k+</div>
-              </div>
-              <span className="text-sm text-gray-300 font-medium">Happy Explorers</span>
-            </div>
+            <WeatherWidget />
           </motion.div>
         </div>
       </div>

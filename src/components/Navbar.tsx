@@ -47,7 +47,7 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
-          <button className="bg-brand-yellow text-brand-green font-bold px-6 py-2.5 rounded-full hover:shadow-[0_0_20px_rgba(244,180,0,0.4)] transition-all">Plan My Trip</button>
+          <Link to="/ai-planner" className="bg-brand-yellow text-brand-green font-bold px-6 py-2.5 rounded-full hover:shadow-[0_0_20px_rgba(244,180,0,0.4)] transition-all">Plan with AI</Link>
         </nav>
 
         {/* Mobile Toggle */}
@@ -93,9 +93,9 @@ export default function Navbar() {
                   </Link>
                 ))}
                 <div className="pt-4 border-t border-gray-100">
-                  <button className="w-full bg-brand-green text-white font-black py-4 rounded-2xl shadow-xl shadow-brand-green/20">
-                    Plan My Trip
-                  </button>
+                  <Link to="/ai-planner" onClick={() => setIsOpen(false)} className="w-full bg-brand-green text-center text-white font-black py-4 rounded-2xl shadow-xl shadow-brand-green/20 block">
+                    Plan with AI
+                  </Link>
                 </div>
               </nav>
             </motion.div>

@@ -35,6 +35,15 @@ service cloud.firestore {
       return data.updatedAt == request.time || data.updatedAt is number;
     }
 
+    function isValidReview(data) {
+      return data.keys().hasAll(['placeId', 'name', 'rating', 'review', 'createdAt']) &&
+             data.placeId is string && data.placeId.size() > 0 && data.placeId.size() <= 128 &&
+             data.name is string && data.name.size() > 0 && data.name.size() <= 64 &&
+             data.rating is number && data.rating >= 1 && data.rating <= 5 &&
+             data.review is string && data.review.size() <= 1000 &&
+             data.createdAt is number;
+    }
+
     // Default Deny All
     match /{document=**} {
       allow read, write: if false;
@@ -79,6 +88,13 @@ service cloud.firestore {
       allow create: if isAgent() && isValidId(itineraryId);
       allow update: if isManager() && isValidId(itineraryId);
       allow delete: if isOwner() && isValidId(itineraryId);
+    }
+
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if isValidId(reviewId) && isValidReview(incoming());
+      allow update: if isManager() && isValidId(reviewId) && isValidReview(incoming());
+      allow delete: if isOwner() && isValidId(reviewId);
     }
   }
 }

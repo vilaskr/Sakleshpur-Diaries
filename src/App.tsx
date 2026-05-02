@@ -11,6 +11,7 @@ import PlaceDetail from './pages/PlaceDetail';
 import Stays from './pages/Stays';
 import FoodSpots from './pages/FoodSpots';
 import Itineraries from './pages/Itineraries';
+import AiTripPlanner from './pages/AiTripPlanner';
 
 // Admin Pages
 import Login from './pages/admin/Login';
@@ -31,6 +32,7 @@ export default function App() {
             <Route path="stays" element={<Stays />} />
             <Route path="food-spots" element={<FoodSpots />} />
             <Route path="itineraries" element={<Itineraries />} />
+            <Route path="ai-planner" element={<AiTripPlanner />} />
           </Route>
 
           {/* Admin Login */}

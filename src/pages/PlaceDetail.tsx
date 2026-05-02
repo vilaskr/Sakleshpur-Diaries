@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { db } from '../lib/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { MapPin, ArrowLeft, Loader2 } from 'lucide-react';
+import ReviewSection from '../components/ReviewSection';
 
 interface Place { 
   id: string; 
@@ -86,6 +87,8 @@ export default function PlaceDetail() {
           <div className="prose prose-lg text-gray-600">
             <p className="leading-relaxed">{place.description}</p>
           </div>
+          
+          <ReviewSection placeId={id!} />
         </motion.div>
       </div>
     </div>

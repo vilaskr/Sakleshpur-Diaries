@@ -69,9 +69,28 @@
         "createdAt": { "type": "integer" }
       },
       "required": ["role", "email", "createdAt"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "A user review for a place, stay, or food spot",
+      "type": "object",
+      "properties": {
+        "placeId": { "type": "string" },
+        "name": { "type": "string" },
+        "rating": { "type": "integer" },
+        "review": { "type": "string" },
+        "images": { "type": "array" },
+        "createdAt": { "type": "integer" },
+        "updatedAt": { "type": "integer" }
+      },
+      "required": ["placeId", "name", "rating", "review", "createdAt"]
     }
   },
   "firestore": {
+    "reviews/{reviewId}": {
+      "schema": { "$ref": "#/entities/Review" },
+      "description": "Stores user reviews"
+    },
     "places/{placeId}": {
       "schema": { "$ref": "#/entities/Place" },
       "description": "Stores places information"
