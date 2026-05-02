@@ -23,7 +23,7 @@ async function startServer() {
       const ai = new GoogleGenAI({ apiKey });
 
       const response = await ai.models.generateContent({
-        model: "gemini-3.1-flash-preview",
+        model: "gemini-2.5-flash",
         contents: `You are a Sakleshpur local travel guide expert.
         Given the following database of available places, stays, and food spots:
         ${contextData}
