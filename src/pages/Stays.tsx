@@ -11,6 +11,7 @@ interface Stay {
   description: string;
   images?: { url: string; public_id: string }[];
   priceRange: string;
+  locationLink?: string;
 }
 
 export default function Stays() {
@@ -57,7 +58,7 @@ export default function Stays() {
               const displayImage = stay.images?.[0]?.url || '';
               return (
                 <motion.div key={stay.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-                  <Card id={stay.id} title={stay.name} description={stay.description} imageUrl={displayImage} linkTo={`/stays`} badge={stay.priceRange} />
+                  <Card id={stay.id} title={stay.name} description={stay.description} imageUrl={displayImage} linkTo={`/stays`} badge={stay.priceRange} locationLink={stay.locationLink} />
                 </motion.div>
               );
             })}

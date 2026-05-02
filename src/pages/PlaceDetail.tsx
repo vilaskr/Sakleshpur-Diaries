@@ -12,6 +12,7 @@ interface Place {
   images?: { url: string; public_id: string }[]; 
   imageUrl?: string; 
   category?: string; 
+  locationLink?: string;
 }
 
 export default function PlaceDetail() {
@@ -64,9 +65,16 @@ export default function PlaceDetail() {
                </span>
              )}
              <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">{place.name}</h1>
-             <div className="flex items-center text-white/90">
-                <MapPin className="w-5 h-5 mr-2" />
-                <span>Sakleshpur, Karnataka, India</span>
+             <div className="flex items-center text-white/90 gap-4">
+               <div className="flex items-center">
+                  <MapPin className="w-5 h-5 mr-2" />
+                  <span>Sakleshpur, Karnataka, India</span>
+               </div>
+               {place.locationLink && (
+                  <a href={place.locationLink} target="_blank" rel="noopener noreferrer" className="bg-brand-green/80 hover:bg-brand-green backdrop-blur-sm text-white px-4 py-1.5 rounded-full text-sm font-bold transition-colors flex items-center">
+                     View on Google Maps
+                  </a>
+               )}
              </div>
            </motion.div>
         </div>

@@ -12,6 +12,7 @@ interface Place {
   images?: { url: string; public_id: string }[]; 
   imageUrl?: string; // Fallback for old data
   category?: string; 
+  locationLink?: string;
 }
 
 export default function Places() {
@@ -58,7 +59,7 @@ export default function Places() {
               const displayImage = place.images?.[0]?.url || place.imageUrl || '';
               return (
                 <motion.div key={place.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-                  <Card id={place.id} title={place.name} description={place.description} imageUrl={displayImage} linkTo={`/places/${place.id}`} badge={place.category} />
+                  <Card id={place.id} title={place.name} description={place.description} imageUrl={displayImage} linkTo={`/places/${place.id}`} badge={place.category} locationLink={place.locationLink} />
                 </motion.div>
               );
             })}

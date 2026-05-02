@@ -11,6 +11,7 @@ interface FoodSpot {
   description: string;
   images?: { url: string; public_id: string }[];
   cuisine: string;
+  locationLink?: string;
 }
 
 export default function FoodSpots() {
@@ -57,7 +58,7 @@ export default function FoodSpots() {
               const displayImage = spot.images?.[0]?.url || '';
               return (
                 <motion.div key={spot.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-                  <Card id={spot.id} title={spot.name} description={spot.description} imageUrl={displayImage} linkTo={`/food-spots`} badge={spot.cuisine} />
+                  <Card id={spot.id} title={spot.name} description={spot.description} imageUrl={displayImage} linkTo={`/food-spots`} badge={spot.cuisine} locationLink={spot.locationLink} />
                 </motion.div>
               );
             })}

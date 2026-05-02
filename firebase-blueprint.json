@@ -9,6 +9,7 @@
         "description": { "type": "string" },
         "images": { "type": "array" },
         "category": { "type": "string" },
+        "locationLink": { "type": "string" },
         "createdAt": { "type": "integer" },
         "updatedAt": { "type": "integer" }
       },
@@ -23,6 +24,7 @@
         "description": { "type": "string" },
         "images": { "type": "array" },
         "priceRange": { "type": "string" },
+        "locationLink": { "type": "string" },
         "createdAt": { "type": "integer" },
         "updatedAt": { "type": "integer" }
       },
@@ -37,6 +39,7 @@
         "description": { "type": "string" },
         "images": { "type": "array" },
         "cuisine": { "type": "string" },
+        "locationLink": { "type": "string" },
         "createdAt": { "type": "integer" },
         "updatedAt": { "type": "integer" }
       },

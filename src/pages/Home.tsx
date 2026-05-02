@@ -13,6 +13,7 @@ interface Place {
   images?: { url: string; public_id: string }[]; 
   imageUrl?: string; 
   category?: string; 
+  locationLink?: string;
 }
 interface Stay { 
   id: string; 
@@ -21,6 +22,7 @@ interface Stay {
   images?: { url: string; public_id: string }[]; 
   imageUrl?: string; 
   priceRange?: string; 
+  locationLink?: string;
 }
 
 export default function Home() {
@@ -75,7 +77,7 @@ export default function Home() {
                 const displayImage = place.images?.[0]?.url || place.imageUrl || '';
                 return (
                   <motion.div key={place.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
-                    <Card id={place.id} title={place.name} description={place.description} imageUrl={displayImage} linkTo={`/places/${place.id}`} badge={place.category} />
+                    <Card id={place.id} title={place.name} description={place.description} imageUrl={displayImage} linkTo={`/places/${place.id}`} badge={place.category} locationLink={place.locationLink} />
                   </motion.div>
                 );
               })}
@@ -111,7 +113,7 @@ export default function Home() {
                 const displayImage = stay.images?.[0]?.url || stay.imageUrl || '';
                 return (
                   <motion.div key={stay.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
-                    <Card id={stay.id} title={stay.name} description={stay.description} imageUrl={displayImage} linkTo="/stays" badge={stay.priceRange} />
+                    <Card id={stay.id} title={stay.name} description={stay.description} imageUrl={displayImage} linkTo="/stays" badge={stay.priceRange} locationLink={stay.locationLink} />
                   </motion.div>
                 );
               })}

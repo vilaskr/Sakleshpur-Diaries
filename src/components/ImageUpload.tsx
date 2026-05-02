@@ -36,8 +36,8 @@ export default function ImageUpload({ onImagesChange, images = [], folder, maxFi
         toast.error(`${file.name} is not an image`);
         return false;
       }
-      if (file.size > 2 * 1024 * 1024) {
-        toast.error(`${file.name} exceeds 2MB limit`);
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error(`${file.name} exceeds 5MB limit`);
         return false;
       }
       return true;
