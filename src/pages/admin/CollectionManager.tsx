@@ -365,7 +365,7 @@ export default function CollectionManager() {
           {isAgent && (
             <button 
               onClick={() => setFormOpen(true)}
-              className="w-full md:w-auto bg-brand-ink text-white px-10 md:px-14 py-4 md:py-5 rounded-xl md:rounded-2xl font-black shadow-2xl shadow-brand-ink/30 hover:scale-105 transition-all uppercase tracking-widest"
+              className="w-full md:w-auto bg-[#111827] text-white px-10 md:px-14 py-4 md:py-5 rounded-xl md:rounded-2xl font-black shadow-2xl shadow-brand-ink/30 hover:scale-105 transition-all uppercase tracking-widest"
             >
               Initialize
             </button>

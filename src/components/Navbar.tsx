@@ -71,7 +71,7 @@ export default function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="md:hidden fixed inset-0 bg-brand-ink/60 backdrop-blur-sm z-[-1]"
+              className="md:hidden fixed inset-0 bg-[#111827]/60 backdrop-blur-sm z-[-1]"
               onClick={() => setIsOpen(false)}
             />
             <motion.div 

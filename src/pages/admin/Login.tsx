@@ -36,7 +36,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-brand-ink px-6">
+    <div className="min-h-screen flex items-center justify-center bg-[#111827] px-6">
       <div className="bg-white p-10 rounded-3xl w-full max-w-md shadow-2xl">
         <h1 className="text-3xl font-bold text-center mb-2">Admin Portal</h1>
         <p className="text-gray-500 text-center mb-8">Sign in to manage the application.</p>

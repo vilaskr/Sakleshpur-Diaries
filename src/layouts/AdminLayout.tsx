@@ -119,7 +119,7 @@ export default function AdminLayout() {
   return (
     <div className="flex h-screen bg-gray-50 overflow-hidden relative">
       {/* Sidebar - Desktop */}
-      <aside className="hidden lg:flex w-72 bg-brand-ink text-white flex-col shrink-0">
+      <aside className="hidden lg:flex w-72 bg-[#111827] text-white flex-col shrink-0">
         <SidebarContent />
       </aside>
 
@@ -132,14 +132,14 @@ export default function AdminLayout() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsSidebarOpen(false)}
-              className="lg:hidden fixed inset-0 bg-brand-ink/60 backdrop-blur-sm z-40"
+              className="lg:hidden fixed inset-0 bg-[#111827]/60 backdrop-blur-sm z-40"
             />
             <motion.div 
               initial={{ x: -280 }}
               animate={{ x: 0 }}
               exit={{ x: -280 }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="lg:hidden fixed inset-y-0 left-0 w-72 bg-brand-ink text-white z-50 flex flex-col shadow-2xl"
+              className="lg:hidden fixed inset-y-0 left-0 w-72 bg-[#111827] text-white z-50 flex flex-col shadow-2xl"
             >
               <SidebarContent />
             </motion.div>

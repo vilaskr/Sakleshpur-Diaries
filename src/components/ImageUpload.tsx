@@ -169,7 +169,7 @@ export default function ImageUpload({ onImagesChange, images = [], folder, maxFi
                 alt="Preview" 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-brand-ink/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+              <div className="absolute inset-0 bg-[#111827]/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
                 <button
                   type="button"
                   onClick={() => removeImage(index)}

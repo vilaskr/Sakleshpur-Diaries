@@ -21,7 +21,7 @@ service cloud.firestore {
     // THE MASTER GATE: Owner or Primary Email
     function isOwner() { 
       return isSignedIn() && (
-        request.auth.token.email.lower() == 'vilaskr762@gmail.com' || 
+        ('email' in request.auth.token && request.auth.token.email == 'vilaskr762@gmail.com') || 
         hasRole('owner')
       );
     }
