@@ -1,0 +1,19 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Helper to check if user is admin via Firestore
+    function isAdmin() {
+      return request.auth != null && (
+        request.auth.token.email.lower() == 'vilaskr762@gmail.com' ||
+        firestore.exists(/databases/ai-studio-728d317b-6562-4b3c-b84d-6482227a4789/documents/admin_users/$(request.auth.uid))
+      );
+    }
+
+    match /{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin() && 
+                   request.resource.size < 5 * 1024 * 1024 &&
+                   request.resource.contentType.matches('image/.*');
+    }
+  }
+}

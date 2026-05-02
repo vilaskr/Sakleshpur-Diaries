@@ -1,0 +1,93 @@
+{
+  "entities": {
+    "Place": {
+      "title": "Place",
+      "description": "A tourist place to visit",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "images": { "type": "array" },
+        "category": { "type": "string" },
+        "createdAt": { "type": "integer" },
+        "updatedAt": { "type": "integer" }
+      },
+      "required": ["name", "description", "images", "category", "createdAt", "updatedAt"]
+    },
+    "Stay": {
+      "title": "Stay",
+      "description": "A place to stay",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "images": { "type": "array" },
+        "priceRange": { "type": "string" },
+        "createdAt": { "type": "integer" },
+        "updatedAt": { "type": "integer" }
+      },
+      "required": ["name", "description", "images", "priceRange", "createdAt", "updatedAt"]
+    },
+    "FoodSpot": {
+      "title": "Food Spot",
+      "description": "A place to eat",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "images": { "type": "array" },
+        "cuisine": { "type": "string" },
+        "createdAt": { "type": "integer" },
+        "updatedAt": { "type": "integer" }
+      },
+      "required": ["name", "description", "images", "cuisine", "createdAt", "updatedAt"]
+    },
+    "Itinerary": {
+      "title": "Itinerary",
+      "description": "A travel plan",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "days": { "type": "integer" },
+        "images": { "type": "array" },
+        "createdAt": { "type": "integer" },
+        "updatedAt": { "type": "integer" }
+      },
+      "required": ["title", "description", "days", "images", "createdAt", "updatedAt"]
+    },
+    "AdminUser": {
+      "title": "Admin User",
+      "description": "A user with admin privileges",
+      "type": "object",
+      "properties": {
+        "role": { "type": "string", "enum": ["owner", "manager", "agent"] },
+        "email": { "type": "string" },
+        "createdAt": { "type": "integer" }
+      },
+      "required": ["role", "email", "createdAt"]
+    }
+  },
+  "firestore": {
+    "places/{placeId}": {
+      "schema": { "$ref": "#/entities/Place" },
+      "description": "Stores places information"
+    },
+    "stays/{stayId}": {
+      "schema": { "$ref": "#/entities/Stay" },
+      "description": "Stores stay data"
+    },
+    "food_spots/{foodSpotId}": {
+      "schema": { "$ref": "#/entities/FoodSpot" },
+      "description": "Stores food spots"
+    },
+    "itineraries/{itineraryId}": {
+      "schema": { "$ref": "#/entities/Itinerary" },
+      "description": "Stores itineraries"
+    },
+    "admin_users/{userId}": {
+      "schema": { "$ref": "#/entities/AdminUser" },
+      "description": "Stores admin roles"
+    }
+  }
+}

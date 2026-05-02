@@ -1,0 +1,84 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // --- 1. Master Helpers ---
+    function isSignedIn() { return request.auth != null; }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+    
+    function isValidId(id) { 
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); 
+    }
+    
+    // Identity verification (Relational lookup)
+    function hasRole(role) {
+      return isSignedIn() && 
+             exists(/databases/$(database)/documents/admin_users/$(request.auth.uid)) &&
+             get(/databases/$(database)/documents/admin_users/$(request.auth.uid)).data.role == role;
+    }
+    
+    // THE MASTER GATE: Owner or Primary Email
+    function isOwner() { 
+      return isSignedIn() && (
+        request.auth.token.email.lower() == 'vilaskr762@gmail.com' || 
+        hasRole('owner')
+      );
+    }
+    
+    function isManager() { return isOwner() || hasRole('manager'); }
+    function isAgent() { return isManager() || hasRole('agent'); }
+
+    // --- 2. Entity Validation ---
+    // Enforces structure and identity
+    function isValidBase(data) {
+      return data.updatedAt == request.time || data.updatedAt is number;
+    }
+
+    // Default Deny All
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- 3. Collection Rules ---
+
+    // Admin Registry
+    match /admin_users/{userId} {
+      allow read: if isSignedIn() && (request.auth.uid == userId || isOwner());
+      allow create: if isSignedIn() && (
+        (request.auth.token.email.lower() == 'vilaskr762@gmail.com' && request.auth.uid == userId) ||
+        isOwner()
+      );
+      allow update, delete: if isOwner();
+    }
+
+    // Content Collections
+    match /places/{placeId} {
+      allow read: if true;
+      allow create: if isAgent() && isValidId(placeId);
+      allow update: if isManager() && isValidId(placeId);
+      allow delete: if isOwner() && isValidId(placeId);
+    }
+
+    match /stays/{stayId} {
+      allow read: if true;
+      allow create: if isAgent() && isValidId(stayId);
+      allow update: if isManager() && isValidId(stayId);
+      allow delete: if isOwner() && isValidId(stayId);
+    }
+
+    match /food_spots/{foodSpotId} {
+      allow read: if true;
+      allow create: if isAgent() && isValidId(foodSpotId);
+      allow update: if isManager() && isValidId(foodSpotId);
+      allow delete: if isOwner() && isValidId(foodSpotId);
+    }
+
+    match /itineraries/{itineraryId} {
+      allow read: if true;
+      allow create: if isAgent() && isValidId(itineraryId);
+      allow update: if isManager() && isValidId(itineraryId);
+      allow delete: if isOwner() && isValidId(itineraryId);
+    }
+  }
+}
