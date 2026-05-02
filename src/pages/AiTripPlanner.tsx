@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { GoogleGenAI, Type } from '@google/genai';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { Sparkles, Send, Loader2, Map as MapIcon, Coffee, Home as HomeIcon, Clock } from 'lucide-react';
@@ -59,69 +58,22 @@ export default function AiTripPlanner() {
     setResult(null);
 
     try {
-      const apiKey = process.env.GEMINI_API_KEY;
-      if (!apiKey) {
-        toast.error("Gemini API key is missing. Please check your environment configuration.");
-        setLoading(false);
-        return;
-      }
-
-      const ai = new GoogleGenAI({ apiKey });
-
-      const response = await ai.models.generateContent({
-        model: 'gemini-3.1-flash-preview',
-        contents: `You are a Sakleshpur local travel guide expert.
-        Given the following database of available places, stays, and food spots:
-        ${contextData}
-        
-        The user wants: "${prompt}"
-        
-        Create a practical, beautifully structured itinerary. Use ONLY the places and stays from the database if they fit, otherwise you can suggest generic travel activities.
-        Return JSON.`,
-        config: {
-          responseMimeType: "application/json",
-          responseSchema: {
-            type: Type.OBJECT,
-            properties: {
-              overallAdvice: { type: Type.STRING, description: "A short, engaging opening paragraph advising the traveler." },
-              days: {
-                type: Type.ARRAY,
-                items: {
-                  type: Type.OBJECT,
-                  properties: {
-                    day: { type: Type.INTEGER },
-                    plan: {
-                      type: Type.ARRAY,
-                      items: {
-                        type: Type.OBJECT,
-                        properties: {
-                          time: { type: Type.STRING, description: "e.g. 09:00 AM" },
-                          activity: { type: Type.STRING, description: "Short title of activity or place name" },
-                          description: { type: Type.STRING, description: "Why do this, or what to do there." },
-                          type: { type: Type.STRING, description: "Must be 'Place', 'Food', 'Stay', or 'Travel'" }
-                        },
-                        required: ["time", "activity", "description", "type"]
-                      }
-                    }
-                  },
-                  required: ["day", "plan"]
-                }
-              }
-            },
-            required: ["overallAdvice", "days"]
-          }
-        }
+      const response = await fetch('/api/ai-trip', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt, contextData })
       });
 
-      if (response.text) {
-        const parsed: AIResponse = JSON.parse(response.text.trim());
-        setResult(parsed);
-        setTimeout(() => {
-          bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
-      } else {
-        toast.error("Failed to generate plan.");
+      if (!response.ok) {
+        const err = await response.json();
+        throw new Error(err.error || 'Failed to fetch AI response');
       }
+
+      const parsed: AIResponse = await response.json();
+      setResult(parsed);
+      setTimeout(() => {
+        bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
     } catch (error) {
       console.error(error);
       toast.error("Something went wrong while planning the trip.");
