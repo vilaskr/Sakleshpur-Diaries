@@ -21,7 +21,7 @@ export default function FoodSpots() {
   useEffect(() => {
     const fetchFoodSpots = async () => {
       try {
-        const spotsQuery = query(collection(db, 'food_spots'), where('createdBy', '==', 'admin'));
+        const spotsQuery = query(collection(db, 'food_spots'), orderBy('createdAt', 'desc'));
         const snap = await getDocs(spotsQuery);
         const foodsData = snap.docs.map(doc => ({ id: doc.id, ...doc.data() } as FoodSpot));
         setFoodSpots(foodsData);
@@ -50,14 +50,20 @@ export default function FoodSpots() {
         ) : foodSpots.length === 0 ? (
           <div className="py-20 text-center bg-white rounded-3xl border-2 border-dashed border-gray-200">
              <p className="text-gray-500 font-medium">No food spots added yet.</p>
-             <p className="text-sm text-gray-400 mt-1">Admin will add content soon.</p>
+             <p className="text-sm text-gray-400 mt-1">Check back soon for local culinary gems.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {foodSpots.map((spot, i) => {
               const displayImage = spot.images?.[0]?.url || '';
               return (
-                <motion.div key={spot.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
+                <motion.div 
+                  key={spot.id} 
+                  initial={{ opacity: 0, y: 20 }} 
+                  animate={{ opacity: 1, y: 0 }} 
+                  transition={{ delay: i * 0.1 }}
+                  className="h-full"
+                >
                   <Card id={spot.id} title={spot.name} description={spot.description} imageUrl={displayImage} linkTo={`/food-spots`} badge={spot.cuisine} locationLink={spot.locationLink} />
                 </motion.div>
               );

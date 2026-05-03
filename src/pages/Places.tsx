@@ -22,7 +22,7 @@ export default function Places() {
   useEffect(() => {
     const fetchPlaces = async () => {
       try {
-        const placesQuery = query(collection(db, 'places'), where('createdBy', '==', 'admin'));
+        const placesQuery = query(collection(db, 'places'), orderBy('createdAt', 'desc'));
         const snap = await getDocs(placesQuery);
         const placesData = snap.docs.map(doc => ({ id: doc.id, ...doc.data() } as Place));
         setPlaces(placesData);
@@ -51,14 +51,20 @@ export default function Places() {
         ) : places.length === 0 ? (
           <div className="py-20 text-center bg-white rounded-3xl border-2 border-dashed border-gray-200">
              <p className="text-gray-500 font-medium">No places added yet.</p>
-             <p className="text-sm text-gray-400 mt-1">Admin will add content soon.</p>
+             <p className="text-sm text-gray-400 mt-1">Check back soon for new destinations.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {places.map((place, i) => {
               const displayImage = place.images?.[0]?.url || place.imageUrl || '';
               return (
-                <motion.div key={place.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
+                <motion.div 
+                  key={place.id} 
+                  initial={{ opacity: 0, y: 20 }} 
+                  animate={{ opacity: 1, y: 0 }} 
+                  transition={{ delay: i * 0.1 }}
+                  className="h-full"
+                >
                   <Card id={place.id} title={place.name} description={place.description} imageUrl={displayImage} linkTo={`/places/${place.id}`} badge={place.category} locationLink={place.locationLink} />
                 </motion.div>
               );

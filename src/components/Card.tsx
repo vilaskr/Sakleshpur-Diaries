@@ -18,11 +18,11 @@ export default function Card({ title, description, imageUrl, linkTo, badge, loca
   return (
     <motion.div 
       whileHover={{ y: -8, scale: 1.01 }}
-      className="group bg-white rounded-3xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 relative"
+      className="group bg-white rounded-3xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 relative flex flex-col h-full"
       onClick={() => navigate(linkTo)}
       role="button"
     >
-      <div className="relative h-64 overflow-hidden">
+      <div className="relative h-64 shrink-0 overflow-hidden">
         {imageUrl ? (
           <img 
             src={imageUrl} 
@@ -41,15 +41,15 @@ export default function Card({ title, description, imageUrl, linkTo, badge, loca
           </div>
         )}
       </div>
-      <div className="p-6">
+      <div className="p-6 flex flex-col flex-1">
         <h3 className="text-xl font-bold text-brand-ink mb-2">{title}</h3>
-        <p className="text-gray-500 line-clamp-2 text-sm leading-relaxed mb-4">
+        <p className="text-gray-500 line-clamp-3 text-sm leading-relaxed mb-4 flex-1">
           {description}
         </p>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between pt-4 border-t border-gray-50 mt-auto">
           <div className="flex items-center text-brand-green text-sm font-medium">
-            <span>Explore</span>
-            <MapPin className="w-4 h-4 ml-1" />
+            <span className="uppercase tracking-widest text-[10px] font-bold">Explore</span>
+            <MapPin className="w-3 h-3 ml-1" />
           </div>
           {locationLink && (
             <a 

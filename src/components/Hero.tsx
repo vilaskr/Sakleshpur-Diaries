@@ -1,26 +1,27 @@
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
-import heroImage from '../assets/images/hero_sakleshpur_1777705987157.png';
 import WeatherWidget from './WeatherWidget';
 
 export default function Hero() {
+  const heroImage = '/images/hero_sakleshpur.png';
+  
   return (
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-brand-green text-white pb-12">
       {/* Background Image */}
       <motion.div 
-        initial={{ scale: 1.1 }}
-        animate={{ scale: 1 }}
+        initial={{ scale: 1.1, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1.5, ease: "easeOut" }}
         className="absolute inset-0 z-0"
       >
         <img 
           src={heroImage} 
           alt="Sakleshpur Hills" 
-          className="w-full h-full object-cover brightness-75"
+          className="w-full h-full object-cover brightness-[0.65]"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-green/80 via-transparent to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-green via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-green/60 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-green/80 via-transparent to-transparent"></div>
       </motion.div>
 
       {/* Content */}

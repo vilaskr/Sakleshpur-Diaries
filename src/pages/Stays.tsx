@@ -21,7 +21,7 @@ export default function Stays() {
   useEffect(() => {
     const fetchStays = async () => {
       try {
-        const staysQuery = query(collection(db, 'stays'), where('createdBy', '==', 'admin'));
+        const staysQuery = query(collection(db, 'stays'), orderBy('createdAt', 'desc'));
         const snap = await getDocs(staysQuery);
         const staysData = snap.docs.map(doc => ({ id: doc.id, ...doc.data() } as Stay));
         setStays(staysData);
@@ -50,14 +50,20 @@ export default function Stays() {
         ) : stays.length === 0 ? (
           <div className="py-20 text-center bg-white rounded-3xl border-2 border-dashed border-gray-200">
              <p className="text-gray-500 font-medium">No stays added yet.</p>
-             <p className="text-sm text-gray-400 mt-1">Admin will add content soon.</p>
+             <p className="text-sm text-gray-400 mt-1">Check back soon for handpicked stays.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {stays.map((stay, i) => {
               const displayImage = stay.images?.[0]?.url || '';
               return (
-                <motion.div key={stay.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
+                <motion.div 
+                  key={stay.id} 
+                  initial={{ opacity: 0, y: 20 }} 
+                  animate={{ opacity: 1, y: 0 }} 
+                  transition={{ delay: i * 0.1 }}
+                  className="h-full"
+                >
                   <Card id={stay.id} title={stay.name} description={stay.description} imageUrl={displayImage} linkTo={`/stays`} badge={stay.priceRange} locationLink={stay.locationLink} />
                 </motion.div>
               );
